@@ -42,6 +42,21 @@
     const TELEGRAM_URL = ""; // ⚠️ Si está vacío → mostrará “No disponible”
 
     /***************************************************
+     * JUGAR AHORA – REDIRECCIÓN ALEATORIA SIN RECARGAR
+     ***************************************************/
+    const JUGAR_AHORA_URLS = [
+      "https://asesdelnorte.com",
+      "https://losasesdelnorte.com",
+      "https://taba.club",
+      "https://elbuho.com"
+    ];
+
+    function getRandomPlayUrl() {
+      const i = Math.floor(Math.random() * JUGAR_AHORA_URLS.length);
+      return JUGAR_AHORA_URLS[i];
+    }
+
+    /***************************************************
      * VARIANTES DE DISEÑO
      ***************************************************/
     const DESIGNS = {
@@ -58,7 +73,8 @@
                 <img src="imagenes/whatsapp.png" alt="" class="wa-ic"> CONTACTANOS
               </a>
 
-              <a href="https://asesdelnorte.com/jugadores/index.php" target="_blank" rel="noopener" class="gn-btn gn-btn-outline">
+              <!-- ✅ Ahora el destino lo elige JS en cada click (sin recargar) -->
+              <a href="#" id="btnJugarAhora" class="gn-btn gn-btn-outline">
                 <img src="imagenes/rocket_1f680.png" alt="" class="wa-ic"> JUGAR AHORA
               </a>
 
@@ -93,6 +109,15 @@
      * RENDER PRINCIPAL
      ***************************************************/
     document.getElementById("cardContainer").innerHTML = DESIGNS.whatsapp.render();
+
+    /***************************************************
+     * CLICK JUGAR AHORA (elige dominio al azar en cada click)
+     ***************************************************/
+    document.getElementById("btnJugarAhora").addEventListener("click", (e) => {
+      e.preventDefault();
+      const randomUrl = getRandomPlayUrl();
+      window.open(randomUrl, "_blank", "noopener");
+    });
 
     /***************************************************
      * LÓGICA WHATSAPP
